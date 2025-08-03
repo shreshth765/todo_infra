@@ -1,4 +1,4 @@
-trigger:
+trigger: none
 pool: New-Group-Agent
   -hamara-agent
 jobs:
