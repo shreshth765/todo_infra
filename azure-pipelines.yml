@@ -1,0 +1,18 @@
+trigger:
+pool: New-Group-Agent
+  -hamara-agent
+jobs:
+- job: MyJob
+  displayName: terraform init
+  continueOnError: true
+  workspace:
+    clean: outputs
+  steps:
+  - task: TerraformTask@5
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: 'MyApp-ServicePrincipal'
+      backendAzureRmStorageAccountName: 'rgstorage90'
+      backendAzureRmContainerName: '$logs'
+      backendAzureRmKey: 'terraform.tfstate'
