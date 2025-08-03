@@ -21,6 +21,12 @@ stages:
               backendAzureRmContainerName: '$logs'
               backendAzureRmKey: 'terraform.tfstate'
 
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)/.terraform'
+              artifact: 'terraform-init'
+              publishLocation: 'pipeline'
+
   - stage: TerraformValidate
     displayName: Terraform Validation
     dependsOn: TerraformInit
@@ -28,6 +34,11 @@ stages:
       - job: ValidateJob
         displayName: Run terraform validate
         steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifact: 'terraform-init'
+              path: '$(System.DefaultWorkingDirectory)/.terraform'
+
           - task: TerraformTask@5
             inputs:
               provider: 'azurerm'
@@ -40,6 +51,11 @@ stages:
       - job: PlanJob
         displayName: Run terraform plan
         steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifact: 'terraform-init'
+              path: '$(System.DefaultWorkingDirectory)/.terraform'
+
           - task: TerraformTask@5
             inputs:
               provider: 'azurerm'
