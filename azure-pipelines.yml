@@ -1,6 +1,5 @@
 trigger: none
 pool: New-Group-Agent
-  -hamara-agent
 jobs:
 - job: MyJob
   displayName: terraform init
