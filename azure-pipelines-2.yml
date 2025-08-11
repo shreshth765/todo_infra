@@ -1,0 +1,25 @@
+trigger:
+- main
+
+pool: New-Group-Agent
+
+steps:
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    backendServiceArm: 'MyApp-ServicePrincipal'
+    backendAzureRmOverrideSubscriptionID: '2d1acd24-a62e-4142-ada2-7566ce920407'
+    backendAzureRmResourceGroupName: 'tfstate-rg'
+    backendAzureRmStorageAccountName: 'tfstatestorage5'
+    backendAzureRmContainerName: '$logs'
+    backendAzureRmKey: 'terraform.tfstate'
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'validate'
+- task: TerraformTask@5
+  inputs:
+    provider: 'azurerm'
+    command: 'plan'
+    environmentServiceNameAzureRM: 'MyApp-ServicePrincipal'
