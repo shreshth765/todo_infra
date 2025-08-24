@@ -6,7 +6,8 @@ pool: Agent-ka-boss
 jobs:
 - job: terraform
   displayName: terraform commands
-- task: TerraformTask@5
+  steps:
+  - task: TerraformTask@5
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -17,6 +18,8 @@ jobs:
     backendAzureRmKey: 'terraform.tfstate'
 - job: terraformplan
   displayName: terraform plan
+  steps:
+    - task: TerraformTask@5
   inputs:
     provider: 'azurerm'
     command: 'plan'
@@ -24,7 +27,8 @@ jobs:
 - job: manualvalidation
   displayName: Manual validation
   pool: server
-- task: ManualValidation@1
+  steps:
+    - task: ManualValidation@1
   inputs:
     notifyUsers: 'kulshrshth8'
     approvers: 'kulshrshth8@gmail.com'
