@@ -1,6 +1,6 @@
 trigger: none
 
-pool: New-Group-Agent
+pool: Ajent-ka-boss
 
 variables:
   terraformWorkingDir: '$(System.DefaultWorkingDirectory)'
@@ -19,7 +19,7 @@ stages:
               provider: 'azurerm'
               command: 'init'
               workingDirectory: '$(terraformWorkingDir)'
-              backendServiceArm: 'MyApp-ServicePrincipal'
+              backendServiceArm: 'New-Service-conn'
               backendAzureRmStorageAccountName: 'rgstorage90'
               backendAzureRmContainerName: '$logs'
               backendAzureRmKey: 'terraform.tfstate'
@@ -68,4 +68,4 @@ stages:
               provider: 'azurerm'
               command: 'plan'
               workingDirectory: '$(terraformWorkingDir)'
-              environmentServiceNameAzureRM: 'MyApp-ServicePrincipal'
+              environmentServiceNameAzureRM: 'New-Service-conn'
