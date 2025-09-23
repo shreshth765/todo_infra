@@ -1,6 +1,6 @@
 trigger: none
 
-pool: Ajent-ka-boss
+pool: Agent-ka-boss
 
 variables:
   terraformWorkingDir: '$(System.DefaultWorkingDirectory)'
